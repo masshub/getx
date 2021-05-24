@@ -36,7 +36,7 @@ class TokenInterceptor extends InterceptorsWrapper{
         // await SPUtils.save(Constant.TOKEN_KEY, _token);
       }
     } catch (e) {
-      log(e);
+      logD(e);
     }
     handler.next(response);
   }

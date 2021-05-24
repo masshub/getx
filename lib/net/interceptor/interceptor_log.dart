@@ -21,10 +21,10 @@ class LogsInterceptor extends InterceptorsWrapper {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    log("请求url：${options.path} ${options.method}");
-    log('请求头: ' + options.headers.toString());
+    logD("请求url：${options.path} ${options.method}");
+    logD('请求头: ' + options.headers.toString());
     if (options.data != null) {
-      log('请求参数: ' + options.data.toString());
+      logD('请求参数: ' + options.data.toString());
     }
     try {
       addLogic(sRequestHttpUrl, options.path);
@@ -42,14 +42,14 @@ class LogsInterceptor extends InterceptorsWrapper {
       }
       addLogic(sHttpRequest, map);
     } catch (e) {
-      log(e);
+      logD(e);
     }
     handler.next(options);
   }
 
   @override
   onResponse(Response response, ResponseInterceptorHandler handler) {
-    log('返回参数: ' + response.toString());
+    logD('返回参数: ' + response.toString());
 
     if (response.data is Map || response.data is List) {
       try {
@@ -58,7 +58,7 @@ class LogsInterceptor extends InterceptorsWrapper {
         addLogic(sResponsesHttpUrl, response.requestOptions.uri.toString());
         addLogic(sHttpResponses, data);
       } catch (e) {
-        log(e);
+        logD(e);
       }
     } else if (response.data is String) {
       try {
@@ -67,7 +67,7 @@ class LogsInterceptor extends InterceptorsWrapper {
         addLogic(sResponsesHttpUrl, response.requestOptions.uri.toString());
         addLogic(sHttpResponses, data);
       } catch (e) {
-        log(e);
+        logD(e);
       }
     } else if (response.data != null) {
       try {
@@ -75,7 +75,7 @@ class LogsInterceptor extends InterceptorsWrapper {
         addLogic(sResponsesHttpUrl, response.requestOptions.uri.toString());
         addLogic(sHttpResponses, json.decode(data));
       } catch (e) {
-        log(e);
+        logD(e);
       }
     }
     handler.next(response);
@@ -84,8 +84,8 @@ class LogsInterceptor extends InterceptorsWrapper {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     if (Config.DEBUG) {
-      log('请求异常: ' + err.toString());
-      log('请求异常信息: ' + (err.response.toString()));
+      logD('请求异常: ' + err.toString());
+      logD('请求异常信息: ' + (err.response.toString()));
     }
     try {
       addLogic(sHttpErrorUrl, err.requestOptions.path);
@@ -93,7 +93,7 @@ class LogsInterceptor extends InterceptorsWrapper {
       errors["error"] = err.message;
       addLogic(sHttpError, errors);
     } catch (e) {
-      log(e);
+      logD(e);
     }
     handler.next(err);
   }

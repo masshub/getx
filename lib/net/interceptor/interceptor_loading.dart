@@ -23,7 +23,7 @@ class LoadingInterceptor extends Interceptor {
         //loading背景色
         background: Colors.black.withOpacity(0.9),);
     }
-    log("打开加载弹窗:$isLoading");
+    logD("打开加载弹窗:$isLoading");
     handler.next(options);
   }
 
@@ -31,14 +31,14 @@ class LoadingInterceptor extends Interceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     //关闭弹窗
     if (isLoading && SelfDialog.isExist()) SelfDialog.dismiss();
-    log("关闭弹窗");
+    logD("关闭弹窗");
     handler.next(response);
   }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     //关闭弹窗
-    log("关闭弹窗");
+    logD("关闭弹窗");
     if (isLoading && SelfDialog.isExist()) SelfDialog.dismiss();
     handler.next(err);
   }

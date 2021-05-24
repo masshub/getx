@@ -18,9 +18,6 @@ class SpUtils{
   }
 
   static get(String key) async {
-    if(_prefs == null){
-      init();
-    }
     return _prefs.get(key);
   }
 

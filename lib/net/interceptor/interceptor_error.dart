@@ -46,7 +46,7 @@ class ErrorInterceptor extends InterceptorsWrapper {
     // error统一处理
     NetException netException = NetException.init(err);
     // 错误提示
-    log('DioError===: ${netException.toString()}');
+    logD('DioError===: ${netException.toString()}');
     if(isShowError){
 
     }

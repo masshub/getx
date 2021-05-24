@@ -9,6 +9,7 @@ import 'package:rent/net/interceptor/interceptor_loading.dart';
 import 'package:rent/net/interceptor/interceptor_response.dart';
 import 'package:rent/net/net/http_method.dart';
 import 'package:rent/net/oauth_type.dart';
+import 'package:rent/util/debug_print.dart';
 
 import 'net_util.dart';
 
@@ -71,6 +72,9 @@ class Http {
     NetUtil.instance.addInterceptor(loadingInterceptor);
 
     NetUtil.instance.addInterceptor(errorInterceptor);
+
+
+    logD("Http Init");
   }
 
   ///Get请求

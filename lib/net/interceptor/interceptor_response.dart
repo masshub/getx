@@ -18,7 +18,7 @@ class ResponseInterceptor extends InterceptorsWrapper {
       Response response, ResponseInterceptorHandler handler) async {
     RequestOptions option = response.requestOptions;
 
-    log("response:::${response.statusCode}");
+    logD("response:::${response.statusCode}");
     var value;
     try {
       var header = response.headers[Headers.contentTypeHeader];
@@ -29,7 +29,7 @@ class ResponseInterceptor extends InterceptorsWrapper {
             headers: response.headers);
       }
     } catch (e) {
-      log(e.toString() + option.path);
+      logD(e.toString() + option.path);
       value = ResultData(response.data, false, response.statusCode!,
           headers: response.headers);
     }

@@ -6,7 +6,7 @@ import 'package:rent/common/config.dart';
 /// description:
 ///
 
-Future<void> log(Object? object) async{
+Future<void> logD(Object? object) async{
   if (Config.DEBUG) {
     print(object);
   }

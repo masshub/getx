@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:rent/common/constant.dart';
 import 'package:rent/page/mine/user_center.dart';
+import 'package:rent/util/debug_print.dart';
+import 'package:rent/util/sp_util.dart';
 
 ///
 /// @author: maker
@@ -47,25 +50,31 @@ class Env {
 
   Env();
 
-  init(Environment env) async{
+  init(Environment env) async {
     this.environment = env;
-    clientId = clientId;
-    clientSecret = clientSecret;
+    clientId = clientIds;
+    clientSecret = clientSecrets;
     authHost = authHosts;
     apiHost = apiHosts;
     h5TruckerHost = h5TruckerHosts;
     h5Double11Host = h5Double11Hosts;
     basicAuth = basicAuths;
     oauthToken = await oauthTokens;
-
-    toString();
-
+    logD(toString());
   }
-
 
   @override
   String toString() {
-    return 'Env{environment: $environment, clientId: $clientId, clientSecret: $clientSecret, authHost: $authHost, apiHost: $apiHost, h5TruckerHost: $h5TruckerHost, h5Double11Host: $h5Double11Host, basicAuth: $basicAuth, oauthToken: $oauthToken}';
+    return 'Env Init Success{\n'
+        'environment: $environment, \n'
+        'clientId: $clientId,\n'
+        'clientSecret: $clientSecret,\n'
+        'authHost: $authHost, \n'
+        'apiHost: $apiHost, \n'
+        'h5TruckerHost: $h5TruckerHost, \n'
+        'h5Double11Host: $h5Double11Host, \n'
+        'basicAuth: $basicAuth, \n'
+        'authToken: $oauthToken }';
   }
 
   /// clientId
@@ -221,4 +230,40 @@ class Env {
     String accessToken = await UserCenter.accessToken;
     return "$tokenType $accessToken";
   }
+}
+
+Environment get currentEnvironment {
+  Environment environment;
+  String env = SpUtils.get(Constant.ENVIRONMENT).toString();
+  switch (env) {
+    case "dev":
+      environment = Environment.dev;
+      break;
+    case "unite1":
+      environment = Environment.unite1;
+      break;
+    case "unite2":
+      environment = Environment.unite2;
+      break;
+    case "test1":
+      environment = Environment.test1;
+      break;
+    case "test2":
+      environment = Environment.test2;
+      break;
+    case "preProduction":
+      environment = Environment.preProduction;
+      break;
+    case "productionCo":
+      environment = Environment.productionCo;
+      break;
+    case "production":
+      environment = Environment.production;
+      break;
+    default:
+      environment = Environment.production;
+      break;
+  }
+
+  return environment;
 }
